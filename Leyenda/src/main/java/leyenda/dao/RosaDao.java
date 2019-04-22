@@ -15,8 +15,8 @@ public class RosaDao {
 		Rosaconjuros rosaconjuros = null;
 		try {
 			Session session = HibernateUtil.getSessionFactory().openSession();
-			Query q = session.createQuery("from Rosaconjuros c where :0 = c.nombreRosa");
-			q.setString(0, nombreRosa);
+			Query q = session.createQuery("from Rosaconjuros c where :nombreRosa = c.nombreRosa");
+			q.setString("nombreRosa", nombreRosa);
 			rosaconjuros = (Rosaconjuros) q.list().get(0);
 			session.close();
 		}catch(Exception e) {
@@ -34,5 +34,19 @@ public class RosaDao {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean exists(String nombreRosa) {
+		boolean resultado = false;
+		try {
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			Query q = session.createQuery("from Rosaconjuros c where :nombreRosa = c.nombreRosa");
+			q.setString("nombreRosa", nombreRosa);
+			resultado = !(q.list().isEmpty());
+			session.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return resultado;
 	}
 }

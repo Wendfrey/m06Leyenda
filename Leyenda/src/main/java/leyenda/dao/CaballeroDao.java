@@ -14,8 +14,8 @@ public class CaballeroDao {
 		Caballero caballero = null;
 		try {
 			Session session = HibernateUtil.getSessionFactory().openSession();
-			Query q = session.createQuery("from Caballero c where :0 = c.nombreCaballero");
-			q.setString(0, nombreCaballero);
+			Query q = session.createQuery("from Caballero c where :nombreCaballero = c.nombreCaballero");
+			q.setString("nombreCaballero", nombreCaballero);
 			caballero = (Caballero) q.list().get(0);
 			session.close();
 		}catch(Exception e) {

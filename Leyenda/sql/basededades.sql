@@ -66,3 +66,9 @@ drop user if exists LlegendaAdmin;
 create user LlegendaAdmin identified by 'LlegendaAdmin';
 grant ALL privileges on llegenda.* to LlegendaAdmin;
 flush privileges;
+
+select * from Caballero;
+select * from Espada;
+select * from PrincesaDragon;
+select * from RosaConjuros;
+select * from Tiene;
