@@ -19,8 +19,9 @@ public class MenuPrincipal extends Menu {
 		String cadena;
 		cadena = "MENU PRINCIPAL LEYENDA\n";
 		cadena += "_____________________________\n";
+		cadena += "Salir				-> 0\n";
 		cadena += "Añadir nueva Rosa de Conjuros	-> 1\n";
-		cadena += "Elimina Espada	-> 2\n";
+		cadena += "Elimina Espada			-> 2\n";
 		cadena += "Modificar Caballeros de Dragon	-> 3\n";
 		cadena += "Mostrar Espadas de Caballero	-> 4\n";
 		cadena += "Escoge una opcion: "; 
@@ -40,6 +41,13 @@ public class MenuPrincipal extends Menu {
 				resultado = 2;
 				BorrarEspada();
 				break;
+			case 3:
+				resultado = 3;
+				ModificarEnfrentamientoDragon();
+				break;
+			case 0:
+				resultado = 0;
+				Consola.getSingletonInstance().escribirSL("Adiós!");
 		}
 		return resultado;
 	}
@@ -198,12 +206,12 @@ public class MenuPrincipal extends Menu {
 		boolean bucle = true, salir = false;
 		
 		do{
-			nombreDragon = c.leerString("Escribe el nombre de la Espada a borrar (vacio para salir): ").trim();
+			nombreDragon = c.leerString("Escribe el nombre del Dragon a modificar (vacio para salir): ").trim();
 			if(nombreDragon.length() == 0) {
 				salir = true;
 			} else if(nombreDragon.length() > 25) {
 				c.escribirSL("El nombre " + nombreDragon + " es demasiado largo.");
-			} else if(!pdDao.exists(nombreDragon)){
+			} else if(!pdDao.existsDragon(nombreDragon)){
 				c.escribirSL("No existe un dragon con el nombre " + nombreDragon + ".");
 			} else {
 				bucle = false;
@@ -212,7 +220,7 @@ public class MenuPrincipal extends Menu {
 		
 		if(!salir) {
 			dragon = pdDao.buscarNombreDragon(nombreDragon);
-			c.escribirSL("");
+			new MenuModificarCaballerosEnfrentados(dragon).bucle();
 		}
 	}
 }
