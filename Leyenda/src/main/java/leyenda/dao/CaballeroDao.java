@@ -52,6 +52,20 @@ public class CaballeroDao {
 		return listaC;
 	}
 	
+	public boolean exists(String nombreCaballero) {
+		boolean resultado = false;
+		try {
+			Session s = HibernateUtil.getSessionFactory().openSession();
+			Query q = s.createQuery("from Caballero c where :nombreCaballero = c.nombreCaballero");
+			q.setString("nombreCaballero", nombreCaballero);
+			resultado = !q.list().isEmpty();
+			s.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return resultado;
+	}
+	
 	public void updateCaballero(Caballero caballero) {
 		try {
 			Session session = HibernateUtil.getSessionFactory().openSession();

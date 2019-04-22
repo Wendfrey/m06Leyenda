@@ -12,11 +12,11 @@ import leyenda.util.HibernateUtil;
 
 public class TienesDao {
 	
-	public List<Tiene> selectCaballero(String nombreCaballero){
+	public List<Tiene> selectEspadasCaballero(String nombreCaballero){
 		List<Tiene> resultado = null;
 		try {
 			Session session = HibernateUtil.getSessionFactory().openSession();
-			Query q = session.createQuery("from Tiene c where :nombreCaballero = c.nombreCaballero");
+			Query q = session.createQuery("from Tiene c where :nombreCaballero = c.id.nombreCaballero");
 			q.setString("nombreCaballero", nombreCaballero);
 			resultado = q.list();
 			for(Tiene t: resultado) {

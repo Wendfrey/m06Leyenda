@@ -58,7 +58,7 @@ public class PrincesaDragonDao {
 		boolean resultado = false;
 		try {
 			Session s = HibernateUtil.getSessionFactory().openSession();
-			Query q = s.createQuery("from Princesadragon c where :nombrePrincesa = c.princesa");
+			Query q = s.createQuery("from Princesadragon c where :nombrePrincesa = c.nombrePrincesa");
 			q.setString("nombrePrincesa", nombrePrincesa);
 			resultado = !q.list().isEmpty();
 			s.close();

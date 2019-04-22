@@ -1,5 +1,8 @@
 package Antonio.Leyenda;
 
+import java.util.List;
+
+import leyenda.dao.CaballeroDao;
 import leyenda.dao.EspadaDao;
 import leyenda.dao.PrincesaDragonDao;
 import leyenda.dao.RosaDao;
@@ -44,6 +47,10 @@ public class MenuPrincipal extends Menu {
 			case 3:
 				resultado = 3;
 				ModificarEnfrentamientoDragon();
+				break;
+			case 4:
+				resultado = 4;
+				MostrarEspadasCaballero();
 				break;
 			case 0:
 				resultado = 0;
@@ -221,6 +228,47 @@ public class MenuPrincipal extends Menu {
 		if(!salir) {
 			dragon = pdDao.buscarNombreDragon(nombreDragon);
 			new MenuModificarCaballerosEnfrentados(dragon).bucle();
+		}
+		else {
+			c.escribirSL("Volviendo al menu...");
+		}
+	}
+	
+	public void MostrarEspadasCaballero() {
+		Consola c = Consola.getSingletonInstance();
+		List<Tiene> listado;
+		TienesDao tDao = new TienesDao();
+		CaballeroDao cDao = new CaballeroDao();
+		String nombreCaballero;
+		boolean bucle = true, salir = false;
+		
+		do{
+			
+			nombreCaballero = c.leerString("Escribe el nombre del caballero para ver sus espadas (vacio para salir): ").trim();
+			if(nombreCaballero.length() == 0) {
+				salir = true;
+			} else if(nombreCaballero.length() > 25) {
+				c.escribirSL("El nombre " + nombreCaballero + " es demasiado largo.");
+			} else if(!cDao.exists(nombreCaballero)){
+				c.escribirSL("No existe un caballero con el nombre de " + nombreCaballero + ".");
+			} else {
+				bucle = false;
+			}
+		} while(bucle && !salir);
+		
+		if(!salir) {
+			listado = tDao.selectEspadasCaballero(nombreCaballero);
+			if(listado.isEmpty()) {
+				c.escribirSL("El caballero "+ nombreCaballero + " no tiene espadas.");
+			} else {
+				c.escribirSL("El caballero "+ nombreCaballero + " tiene las espadas:");
+				for(Tiene t: listado) {
+					c.escribirSL("- "+t.getEspada().getNombreEspada()+" con "+t.getPorcentageAtaque()+"% de manejo y "+t.getEspada().getAtaqueEspada()+" de daño.");
+				}
+			}
+		}
+		else {
+			c.escribirSL("Volviendo al menu...");
 		}
 	}
 }
