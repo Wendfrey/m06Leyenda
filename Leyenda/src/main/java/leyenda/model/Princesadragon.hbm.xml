@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 22-abr-2019 18:21:49 by Hibernate Tools 5.1.10.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="llegenda" dynamic-insert="false" dynamic-update="false" mutable="true" name="leyenda.model.Princesadragon" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="princesadragon">
+        <id name="nombrePrincesa" type="string">
+            <column length="25" name="nombrePrincesa"/>
+            <generator class="assigned"/>
+        </id>
+        <many-to-one class="leyenda.model.Rosaconjuros" embed-xml="true" fetch="select" insert="true" name="rosaconjuros" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column length="25" name="nombreRosa"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="colorMagia" optimistic-lock="true" type="string" unique="false">
+            <column length="10" name="colorMagia"/>
+        </property>
+        <property generated="never" lazy="false" name="numeroConjuros" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="numeroConjuros"/>
+        </property>
+        <property generated="never" lazy="false" name="nombreDragon" optimistic-lock="true" type="string" unique="false">
+            <column length="25" name="nombreDragon"/>
+        </property>
+        <property generated="never" lazy="false" name="ataqueDragon" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="ataqueDragon"/>
+        </property>
+        <property generated="never" lazy="false" name="vidaDragon" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="vidaDragon"/>
+        </property>
+        <property generated="never" lazy="false" name="defensaDragon" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="defensaDragon"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="caballeros" optimistic-lock="true" sort="unsorted" table="caballero">
+            <key on-delete="noaction">
+                <column length="25" name="nombrePrincesa"/>
+            </key>
+            <one-to-many class="leyenda.model.Caballero" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>

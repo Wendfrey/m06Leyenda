@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 22-abr-2019 18:21:49 by Hibernate Tools 5.1.10.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="llegenda" dynamic-insert="false" dynamic-update="false" mutable="true" name="leyenda.model.Caballero" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="caballero">
+        <id name="nombreCaballero" type="string">
+            <column length="25" name="nombreCaballero"/>
+            <generator class="assigned"/>
+        </id>
+        <many-to-one class="leyenda.model.Princesadragon" embed-xml="true" fetch="select" insert="true" name="princesadragon" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column length="25" name="nombrePrincesa"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="vidaCaballero" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="vidaCaballero"/>
+        </property>
+        <property generated="never" lazy="false" name="defensaCaballero" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="defensaCaballero"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="tienes" optimistic-lock="true" sort="unsorted" table="tiene">
+            <key on-delete="noaction">
+                <column length="25" name="nombreCaballero" not-null="true"/>
+            </key>
+            <one-to-many class="leyenda.model.Tiene" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>
