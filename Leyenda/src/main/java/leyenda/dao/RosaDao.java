@@ -31,6 +31,7 @@ public class RosaDao {
 			session.beginTransaction();
 			session.save(r);
 			session.getTransaction().commit();
+			session.close();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

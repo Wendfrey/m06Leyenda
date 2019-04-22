@@ -3,6 +3,7 @@ package leyenda.dao;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import leyenda.model.Caballero;
 import leyenda.model.Princesadragon;
 import leyenda.util.HibernateUtil;
 
@@ -21,6 +22,23 @@ public class PrincesaDragonDao {
 			e.printStackTrace();
 		}
 		return princesa;
+	}
+	
+	public Princesadragon buscarNombreDragon(String nombreDragon) {
+		Princesadragon dragon = null;
+		try {
+			Session s = HibernateUtil.getSessionFactory().openSession();
+			Query q = s.createQuery("from Princesadragon c where :nombreDragon = c.nombreDragon");
+			q.setString("nombreDragon", nombreDragon);
+			dragon = (Princesadragon) q.list().get(0);
+			for(Caballero c : dragon.getCaballeros()) {
+				c.getDefensaCaballero();
+			}
+			s.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return dragon;
 	}
 	
 	public void UpdatePrincesadragon(Princesadragon princesadragon) {

@@ -19,5 +19,6 @@ public class App
         }*/
         Menu m = new MenuPrincipal();
         m.bucle();
+        HibernateUtil.shutdown();
     }
 }

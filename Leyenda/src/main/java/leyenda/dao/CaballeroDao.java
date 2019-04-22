@@ -36,4 +36,17 @@ public class CaballeroDao {
 		}
 		return listaC;
 	}
+	
+	public List<Caballero> noSiguePrincesaCaballero(String nombrePrincesa){
+		List<Caballero> listaC = null;
+		try {
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			Query q = session.createQuery("from Caballero c where not :nombrePrincesa = c.nombrePrincesa");
+			listaC = q.list();
+			session.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return listaC;
+	}
 }
